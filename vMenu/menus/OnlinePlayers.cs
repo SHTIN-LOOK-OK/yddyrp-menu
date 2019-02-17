@@ -20,7 +20,7 @@ namespace vMenuClient
         // Menu variable, will be defined in CreateMenu()
         private Menu menu;
 
-        Menu playerMenu = new Menu("Online Players", "Player:");
+        Menu playerMenu = new Menu("Игроки онлайн", "Онлайн:");
         Player currentPlayer = new Player(Game.Player.Handle);
 
 
@@ -30,21 +30,21 @@ namespace vMenuClient
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Online Players") { };
-            menu.CounterPreText = "Players: ";
+            menu = new Menu(Game.Player.Name, "Игроки онлайн") { };
+            menu.CounterPreText = "Игроки: ";
 
             MenuController.AddSubmenu(menu, playerMenu);
 
-            MenuItem teleport = new MenuItem("Teleport To Player", "Teleport to this player.");
-            MenuItem teleportVeh = new MenuItem("Teleport Into Player Vehicle", "Teleport into the vehicle of the player.");
-            MenuItem summon = new MenuItem("Summon Player", "Teleport the player to you.");
-            MenuItem toggleGPS = new MenuItem("Toggle GPS", "Enables or disables the GPS route on your radar to this player.");
-            MenuItem spectate = new MenuItem("Spectate Player", "Spectate this player. Click this button again to stop spectating.");
-            MenuItem printIdentifiers = new MenuItem("Print Identifiers", "This will print the player's identifiers to the client console (F8). And also save it to the CitizenFX.log file.");
-            MenuItem kill = new MenuItem("~r~Kill Player", "Kill this player, note they will receive a notification saying that you killed them. It will also be logged in the Staff Actions log.");
-            MenuItem kick = new MenuItem("~r~Kick Player", "Kick the player from the server.");
-            MenuItem ban = new MenuItem("~r~Ban Player Permanently", "Ban this player permanently from the server. Are you sure you want to do this? You can specify the ban reason after clicking this button.");
-            MenuItem tempban = new MenuItem("~r~Ban Player Temporarily", "Give this player a tempban of up to 30 days (max). You can specify duration and ban reason after clicking this button.");
+            MenuItem teleport = new MenuItem("Телепортировать игрока", "Телепортироваться к этому игроку.");
+            MenuItem teleportVeh = new MenuItem("Телепортироватся в автомобиль игрока", "Телепортация игрока в автомобиль.");
+            MenuItem summon = new MenuItem("Вызвать игрока", "Телепортировать игрока к вам.");
+            MenuItem toggleGPS = new MenuItem("Переключение GPS", "Включить или отключить маршрут GPS на радаре данному игроку.");
+            MenuItem spectate = new MenuItem("Наблюдать за игроком", "Наблюдать за этим игроком. Нажмите эту кнопку еще раз, чтобы остановить просмотр.");
+            MenuItem printIdentifiers = new MenuItem("Печать идентификаторов", "При этом идентификаторы плеера будут выведены на клиентскую консоль (F8). А также сохранит его в CitizenFX.log file.");
+            MenuItem kill = new MenuItem("~r~Убить Игрока", "Убейте этого игрока, обратите внимание, что они получат уведомление о том, что вы убили их. Он также будет зарегистрирован в Actions log.");
+            MenuItem kick = new MenuItem("~r~Кик игрока", "Кик игрока с сервера.");
+            MenuItem ban = new MenuItem("~r~Забанить игрока навсегда", "Навсегда заблокировать этого игрока на сервере.Вы уверен, что хотите это сделать? Вы можете указать причину после нажатия этой кнопки.");
+            MenuItem tempban = new MenuItem("~r~Временно забанить игрока", "Дать этому игроку бан до 30 дней (максимум). Вы можете указать продолжительность и причину бана после нажатия этой кнопки.");
 
             if (IsAllowed(Permission.OPTeleport))
             {
@@ -106,7 +106,7 @@ namespace vMenuClient
                     if (Game.Player.Handle != currentPlayer.Handle)
                         TeleportToPlayer(currentPlayer.Handle, item == teleportVeh); // teleport to the player. optionally in the player's vehicle if that button was pressed.
                     else
-                        Notify.Error("You can not teleport to yourself!");
+                        Notify.Error("Вы не можете телепортироваться к себе!");
                 }
                 // summon button
                 else if (item == summon)
@@ -114,7 +114,7 @@ namespace vMenuClient
                     if (Game.Player.Handle != currentPlayer.Handle)
                         SummonPlayer(currentPlayer);
                     else
-                        Notify.Error("You can't summon yourself.");
+                        Notify.Error("Вы не можете призвать себя.");
                 }
                 // spectating
                 else if (item == spectate)
@@ -174,7 +174,7 @@ namespace vMenuClient
                         }
                         else
                         {
-                            Notify.Error("You can not set a waypoint to yourself.");
+                            Notify.Error("Вы не можете установить путевую точку для себя.");
                         }
                     }
                 }
@@ -199,7 +199,7 @@ namespace vMenuClient
                     if (currentPlayer.Handle != Game.Player.Handle)
                         KickPlayer(currentPlayer, true);
                     else
-                        Notify.Error("You cannot kick yourself!");
+                        Notify.Error("Вы не можете кикнуть самого себя!");
                 }
                 // temp ban
                 else if (item == tempban)
@@ -209,7 +209,7 @@ namespace vMenuClient
                 // perm ban
                 else if (item == ban)
                 {
-                    if (ban.Label == "Are you sure?")
+                    if (ban.Label == "Вы уверены?")
                     {
                         ban.Label = "";
                         UpdatePlayerlist();
@@ -218,7 +218,7 @@ namespace vMenuClient
                     }
                     else
                     {
-                        ban.Label = "Are you sure?";
+                        ban.Label = "Вы уверены?";
                     }
                 }
             };
