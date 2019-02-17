@@ -185,7 +185,7 @@ namespace vMenuClient
                 else
                 {
                     btn.LeftIcon = MenuItem.Icon.LOCK;
-                    btn.Description = "Эта категория была выключена админмстратором сервера.";
+                    btn.Description = "Эта категория была выключена администратором сервера.";
                     btn.Enabled = false;
                 }
 
