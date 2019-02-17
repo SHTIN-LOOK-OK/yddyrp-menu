@@ -85,7 +85,7 @@ namespace vMenuClient
             {
                 pedCustomization.Enabled = false;
                 pedCustomization.LeftIcon = MenuItem.Icon.LOCK;
-                pedCustomization.Description = "~r~This option has been disabled by the server owner.";
+                pedCustomization.Description = "~r~Эта функция отключена админиматратором сервера.";
             }
 
             if (IsAllowed(Permission.PASpawnSaved))
@@ -96,7 +96,7 @@ namespace vMenuClient
             {
                 spawnSavedPed.Enabled = false;
                 spawnSavedPed.LeftIcon = MenuItem.Icon.LOCK;
-                spawnSavedPed.Description = "~r~This option has been disabled by the server owner.";
+                spawnSavedPed.Description = "~r~Эта функция отключена админиматратором сервера.";
             }
 
             MenuController.BindMenuItem(menu, deleteSavedPedMenu, deleteSavedPed);
@@ -123,7 +123,7 @@ namespace vMenuClient
                             {
                                 button.Enabled = false;
                                 button.LeftIcon = MenuItem.Icon.LOCK;
-                                button.Description = "This ped is not available on this server. Ask the server owner to fix this streamed model and verify the model spawn name.";
+                                button.Description = "Данный персонаж недоступен на сервере.";
                             }
                         }
 
@@ -141,14 +141,14 @@ namespace vMenuClient
                 else
                 {
                     addonPedsBtn.Enabled = false;
-                    addonPedsBtn.Description = "This server does not have any addon peds available.";
+                    addonPedsBtn.Description = "На сервере нет доступных аддонов для персонажа.";
                     addonPedsBtn.LeftIcon = MenuItem.Icon.LOCK;
                 }
             }
             else
             {
                 addonPedsBtn.Enabled = false;
-                addonPedsBtn.Description = "This server does not have any addon peds available.";
+                addonPedsBtn.Description = "На сервере нет доступных аддонов для персонажа.";
                 addonPedsBtn.LeftIcon = MenuItem.Icon.LOCK;
             }
 
@@ -159,7 +159,7 @@ namespace vMenuClient
             if (!IsAllowed(Permission.PASpawnNew))
             {
                 spawnByName.Enabled = false;
-                spawnByName.Description = "This option is disabled by the server owner or you are not allowed to use it.";
+                spawnByName.Description = "Эта функция отключена админиматратором сервера, или у Вас нет доступа для её использования.";
                 spawnByName.LeftIcon = MenuItem.Icon.LOCK;
             }
 
@@ -198,7 +198,7 @@ namespace vMenuClient
             {
                 if (item == walkingStyle)
                 {
-                    if (MainMenu.DebugMode) Subtitle.Custom("Ped is: " + IsPedMale(Game.PlayerPed.Handle));
+                    if (MainMenu.DebugMode) Subtitle.Custom("Персонаж: " + IsPedMale(Game.PlayerPed.Handle));
                     SetWalkingStyle(walkstyles[listIndex].ToString());
                 }
                 else if (item == clothingGlowType)
@@ -278,8 +278,8 @@ namespace vMenuClient
                             if (!IsHelpMessageBeingDisplayed())
                             {
                                 BeginTextCommandDisplayHelp("TWOSTRINGS");
-                                AddTextComponentSubstringPlayerName("Hold ~INPUT_SWITCH_VISOR~ to flip your helmet visor open or closed");
-                                AddTextComponentSubstringPlayerName("when on foot or on a motorcycle and when vMenu is closed.");
+                                AddTextComponentSubstringPlayerName("Удерживайте ~INPUT_SWITCH_VISOR~ чтобы открыть или закрыть козырек вашего шлема");
+                                AddTextComponentSubstringPlayerName("когда вы идете пешком или на мотоцикле, то vMenu закрыто.");
                                 EndTextCommandDisplayHelp(0, false, true, 6000);
                             }
                         }
@@ -360,7 +360,7 @@ namespace vMenuClient
                         drawableTexturesList.Add($"Drawable #{i + 1} (of {maxVariations})");
                     }
 
-                    MenuListItem drawableTextures = new MenuListItem($"{textureNames[drawable]}", drawableTexturesList, currentDrawable, $"Use ← & → to select a ~o~{textureNames[drawable]} Variation~s~, press ~r~enter~s~ to cycle through the available textures.");
+                    MenuListItem drawableTextures = new MenuListItem($"{textureNames[drawable]}", drawableTexturesList, currentDrawable, $"Используйте ← & → чтобы выбрать ~o~{textureNames[drawable]} ~s~, и нажмите ~r~Еnter~s~ чтобы выбрать текстуру.");
                     drawablesMenuListItems.Add(drawableTextures, drawable);
                     pedCustomizationMenu.AddMenuItem(drawableTextures);
                 }
@@ -386,7 +386,7 @@ namespace vMenuClient
                     }
 
 
-                    MenuListItem propTextures = new MenuListItem($"{propNames[tmpProp]}", propTexturesList, currentProp + 1, $"Use ← & → to select a ~o~{propNames[tmpProp]} Variation~s~, press ~r~enter~s~ to cycle through the available textures.");
+                    MenuListItem propTextures = new MenuListItem($"{propNames[tmpProp]}", propTexturesList, currentProp + 1, $"Используйте ← & → чтобы выбрать ~o~{propNames[tmpProp]} ~s~, и нажмите ~r~Еnter~s~ чтобы выбрать текстуру.Ы");
                     propsMenuListItems.Add(propTextures, realProp);
                     pedCustomizationMenu.AddMenuItem(propTextures);
 
@@ -459,7 +459,7 @@ namespace vMenuClient
                     var title = savename.Substring(4);
                     if (!items.Contains(title))
                     {
-                        MenuItem savedPedBtn = new MenuItem(title, "Spawn this saved ped.");
+                        MenuItem savedPedBtn = new MenuItem(title, "Заспавнить сохраненного персонажа.");
                         spawnSavedPedMenu.AddMenuItem(savedPedBtn);
                         items.Add(title);
                     }
@@ -495,7 +495,7 @@ namespace vMenuClient
             }
             foreach (var savename in savesFound)
             {
-                MenuItem deleteSavedPed = new MenuItem(savename.Substring(4), "~r~Delete ~s~this saved ped, this action can ~r~NOT~s~ be undone!")
+                MenuItem deleteSavedPed = new MenuItem(savename.Substring(4), "~r~Удалить ~s~этого сохраненного персонажа, это действия ~r~НЕ МОЖЕТ~s~ быть отменено!")
                 {
                     LeftIcon = MenuItem.Icon.WARNING
                 };
@@ -509,7 +509,7 @@ namespace vMenuClient
             {
                 var name = item.Text.ToString();
                 StorageManager.DeleteSavedStorageItem("ped_" + name);
-                Notify.Success("Saved ped deleted.");
+                Notify.Success("Персонаж удален.");
                 deleteSavedPedMenu.GoBack();
             };
 
