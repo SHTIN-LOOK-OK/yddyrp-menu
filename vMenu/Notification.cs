@@ -196,7 +196,7 @@ namespace vMenuClient
         /// <param name="saveToBrief">Should the notification be logged to the brief (PAUSE menu > INFO > Notifications)?</param>
         public static void Success(string message, bool blink = true, bool saveToBrief = true)
         {
-            Custom("~g~~h~Отлично~h~~s~: " + message, blink, saveToBrief);
+            Custom("~g~~h~Успешно~h~~s~: " + message, blink, saveToBrief);
         }
     }
     #endregion
