@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,51 +53,51 @@ namespace vMenuClient
             switch (errorType)
             {
                 case CommonErrors.NeedToBeTheDriver:
-                    outputMessage = "You need to be the driver of this vehicle.";
+                    outputMessage = "Вы должны быть водителем этого транспортного средства.";
                     break;
                 case CommonErrors.NoVehicle:
-                    outputMessage = $"You need to be inside a vehicle{placeholder}.";
+                    outputMessage = $"Вы должны быть внутри транспортного средства{placeholder}.";
                     break;
                 case CommonErrors.NotAllowed:
                     outputMessage = $"You are not allowed to{placeholder}, sorry.";
                     break;
                 case CommonErrors.InvalidModel:
-                    outputMessage = $"This model~r~{placeholder} ~s~could not be found, are you sure it's valid?";
+                    outputMessage = $"Данную модель~r~{placeholder} ~s~не удалось найти.";
                     break;
                 case CommonErrors.InvalidInput:
                     outputMessage = $"The input~r~{placeholder} ~s~is invalid or you cancelled the action, please try again.";
                     break;
                 case CommonErrors.InvalidSaveName:
-                    outputMessage = $"Saving failed because the provided save name~r~{placeholder} ~s~is invalid.";
+                    outputMessage = $"Сохранить транспортное средство неудалось, посколько имя сохранения~r~{placeholder} ~s~недопустимо.";
                     break;
                 case CommonErrors.SaveNameAlreadyExists:
-                    outputMessage = $"Saving failed because the provided save name~r~{placeholder} ~s~already exists.";
+                    outputMessage = $"Имя сохранения~r~{placeholder} ~s~уже существует, попробуйте другое.";
                     break;
                 case CommonErrors.CouldNotLoadSave:
-                    outputMessage = $"Loading of~r~{placeholder} ~s~failed! Is the saves file corrupt?";
+                    outputMessage = $"Загрузка~r~{placeholder} ~s~не удалась. Возможно поврежден файл сохранений.";
                     break;
                 case CommonErrors.CouldNotLoad:
-                    outputMessage = $"Could not load~r~{placeholder}~s~, sorry!";
+                    outputMessage = $"Ну удалось загрузить~r~{placeholder}~s~, простите!";
                     break;
                 case CommonErrors.PedNotFound:
-                    outputMessage = $"The specified ped could not be found.{placeholder}";
+                    outputMessage = $"Указанный персонаж не найден.{placeholder}";
                     break;
                 case CommonErrors.PlayerNotFound:
-                    outputMessage = $"The specified player could not be found.{placeholder}";
+                    outputMessage = $"Указанный игрок не найден.{placeholder}";
                     break;
                 case CommonErrors.WalkingStyleNotForMale:
-                    outputMessage = $"This walking style is not available for male peds.{placeholder}";
+                    outputMessage = $"Эта походка недоступна для мужского персонажа.{placeholder}";
                     break;
                 case CommonErrors.WalkingStyleNotForFemale:
-                    outputMessage = $"This walking style is not available for female peds.{placeholder}";
+                    outputMessage = $"Эта походка недоступна для женского персонажа.{placeholder}";
                     break;
                 case CommonErrors.RightAlignedNotSupported:
-                    outputMessage = $"Right aligned menus are not supported for ultra wide aspect ratios.{placeholder}";
+                    outputMessage = $"Выравнивание вправо не поддерживается на широкоформатных мониторах.{placeholder}";
                     break;
 
                 case CommonErrors.UnknownError:
                 default:
-                    outputMessage = $"An unknown error occurred, sorry!{placeholder}";
+                    outputMessage = $"Неизвестная ошибка.{placeholder}";
                     break;
             }
             return outputMessage;
@@ -136,7 +136,7 @@ namespace vMenuClient
         /// <param name="saveToBrief">Should the notification be logged to the brief (PAUSE menu > INFO > Notifications)?</param>
         public static void Alert(string message, bool blink = true, bool saveToBrief = true)
         {
-            Custom("~y~~h~Alert~h~~s~: " + message, blink, saveToBrief);
+            Custom("~y~~h~Внимание~h~~s~: " + message, blink, saveToBrief);
         }
 
         /// <summary>
@@ -160,8 +160,8 @@ namespace vMenuClient
         /// <param name="saveToBrief">Should the notification be logged to the brief (PAUSE menu > INFO > Notifications)?</param>
         public static void Error(string message, bool blink = true, bool saveToBrief = true)
         {
-            Custom("~r~~h~Error~h~~s~: " + message, blink, saveToBrief);
-            Debug.Write("[vMenu] [ERROR] " + message + "\n");
+            Custom("~r~~h~Ошибка~h~~s~: " + message, blink, saveToBrief);
+            Debug.Write("[Menu] [Error] " + message + "\n");
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace vMenuClient
         /// <param name="saveToBrief">Should the notification be logged to the brief (PAUSE menu > INFO > Notifications)?</param>
         public static void Info(string message, bool blink = true, bool saveToBrief = true)
         {
-            Custom("~b~~h~Info~h~~s~: " + message, blink, saveToBrief);
+            Custom("~b~~h~Информация~h~~s~: " + message, blink, saveToBrief);
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace vMenuClient
         /// <param name="saveToBrief">Should the notification be logged to the brief (PAUSE menu > INFO > Notifications)?</param>
         public static void Success(string message, bool blink = true, bool saveToBrief = true)
         {
-            Custom("~g~~h~Success~h~~s~: " + message, blink, saveToBrief);
+            Custom("~g~~h~Отлично~h~~s~: " + message, blink, saveToBrief);
         }
     }
     #endregion
