@@ -149,14 +149,14 @@ namespace vMenuClient
                 {
                     addonCarsBtn.Enabled = false;
                     addonCarsBtn.LeftIcon = MenuItem.Icon.LOCK;
-                    addonCarsBtn.Description = "The list containing all addon cars could not be loaded, is it configured properly?";
+                    addonCarsBtn.Description = "Ну удалось загрузить список всех аддонов.";
                 }
             }
             else
             {
                 addonCarsBtn.Enabled = false;
                 addonCarsBtn.LeftIcon = MenuItem.Icon.LOCK;
-                addonCarsBtn.Description = "Access to this list has been restricted by the server owner.";
+                addonCarsBtn.Description = "Доступ к этому списку был ограничен администратором сервера.";
             }
             #endregion
 
@@ -185,7 +185,7 @@ namespace vMenuClient
                 else
                 {
                     btn.LeftIcon = MenuItem.Icon.LOCK;
-                    btn.Description = "This category has been disabled by the server owner.";
+                    btn.Description = "Эта категория была выключена админмстратором сервера.";
                     btn.Enabled = false;
                 }
 
@@ -235,7 +235,7 @@ namespace vMenuClient
                             }
                             else
                             {
-                                var vehBtn = new MenuItem(vehName, "This vehicle is not available because the model could not be found in your game files. If this is a DLC vehicle, make sure the server is streaming it.") { Enabled = false };
+                                var vehBtn = new MenuItem(vehName, "Этот автомобиль недоступен, так как модель не найдена в файлах Вашей игры.") { Enabled = false };
                                 vehicleClassMenu.AddMenuItem(vehBtn);
                                 vehBtn.RightIcon = MenuItem.Icon.LOCK;
                             }
@@ -256,7 +256,7 @@ namespace vMenuClient
                         }
                         else
                         {
-                            var vehBtn = new MenuItem(vehName, "This vehicle is not available because the model could not be found in your game files. If this is a DLC vehicle, make sure the server is streaming it.") { Enabled = false };
+                            var vehBtn = new MenuItem(vehName, "Этот автомобиль недоступен, так как модель не найдена в файлах Вашей игры.") { Enabled = false };
                             vehicleClassMenu.AddMenuItem(vehBtn);
                             vehBtn.RightIcon = MenuItem.Icon.LOCK;
                         }
