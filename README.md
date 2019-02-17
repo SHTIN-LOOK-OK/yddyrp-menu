@@ -1,6 +1,6 @@
 |Последний билд|
 |:-:|
-|[![Build status](https://ci.appveyor.com/api/projects/status/inf2kinljmp8a5ul?svg=true)](https://ci.appveyor.com/project/TomGrobbe/vmenu)|
+|https://travis-ci.com/h0kkaido/yddyrp-menu.svg?token=sse936bpkXWNZovws8DS&branch=master)|
 
 --------
 
