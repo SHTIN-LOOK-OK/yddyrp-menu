@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,7 +50,7 @@ namespace vMenuClient
                     }
                     else
                     {
-                        Notify.Error("You are currently not in any vehicle. Please enter a vehicle before trying to save it.");
+                        Notify.Error("На данный момент Вы не находитесь в транспортном средстве. Зайдите в него, прежде чем пытаться его сохранить.");
                     }
                 }
             };
@@ -120,7 +120,7 @@ namespace vMenuClient
                 }
                 else if (item == renameVehicle)
                 {
-                    string newName = await GetUserInput(windowTitle: "Enter a new name for this vehicle.", maxInputLength: 30);
+                    string newName = await GetUserInput(windowTitle: "Введите имя для этого автомобиля.", maxInputLength: 30);
                     if (string.IsNullOrEmpty(newName))
                     {
                         Notify.Error(CommonErrors.InvalidInput);
@@ -134,14 +134,14 @@ namespace vMenuClient
                             {
                                 await BaseScript.Delay(0);
                             }
-                            Notify.Success("Your vehicle has successfully been renamed.");
+                            Notify.Success("Ваш автомобиль был переименован.");
                             UpdateMenuAvailableCategories();
                             selectedVehicleMenu.GoBack();
                             currentlySelectedVehicle = new KeyValuePair<string, VehicleInfo>(); // clear the old info
                         }
                         else
                         {
-                            Notify.Error("This name is already in use or something unknown failed. Contact the server owner if you believe something is wrong.");
+                            Notify.Error("Это имя автомобиля уже используется.");
                         }
                     }
                 }
@@ -151,11 +151,11 @@ namespace vMenuClient
                     {
                         SaveVehicle(currentlySelectedVehicle.Key.Substring(4));
                         selectedVehicleMenu.GoBack();
-                        Notify.Success("Your saved vehicle has been replaced with your current vehicle.");
+                        Notify.Success("Вы успешно заменили сохраненный автомобиль.");
                     }
                     else
                     {
-                        Notify.Error("You need to be in a vehicle before you can relplace your old vehicle.");
+                        Notify.Error("Вы должны находится в автомобиле, прежде чем Вы сможете его заменить.");
                     }
                 }
                 else if (item == deleteVehicle)
@@ -163,8 +163,8 @@ namespace vMenuClient
                     if (deleteButtonPressedCount == 0)
                     {
                         deleteButtonPressedCount = 1;
-                        item.Label = "Press again to confirm.";
-                        Notify.Alert("Are you sure you want to delete this vehicle? Press the button again to confirm.");
+                        item.Label = "Нажмите повторно для подтверждения.";
+                        Notify.Alert("Вы уверены, что хотите удалить этот автомобиль? Нажмите кнопку снова для подтверждения");
                     }
                     else
                     {
@@ -173,7 +173,7 @@ namespace vMenuClient
                         DeleteResourceKvp(currentlySelectedVehicle.Key);
                         UpdateMenuAvailableCategories();
                         selectedVehicleMenu.GoBack();
-                        Notify.Success("Your saved vehicle has been deleted.");
+                        Notify.Success("Ваш сохранненый автомобиль был удален.");
                     }
                 }
                 if (item != deleteVehicle) // if any other button is pressed, restore the delete vehicle button pressed count.
@@ -227,14 +227,14 @@ namespace vMenuClient
                     GetMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.NONE;
                     GetMenu().GetMenuItems()[i].Label = "→→→";
                     GetMenu().GetMenuItems()[i].Enabled = true;
-                    GetMenu().GetMenuItems()[i].Description = $"All saved vehicles from the {GetMenu().GetMenuItems()[i].Text} category.";
+                    GetMenu().GetMenuItems()[i].Description = $"Все сохраненные автомобилей из категории {GetMenu().GetMenuItems()[i].Text} .";
                 }
                 else
                 {
                     GetMenu().GetMenuItems()[i].Label = "";
                     GetMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.LOCK;
                     GetMenu().GetMenuItems()[i].Enabled = false;
-                    GetMenu().GetMenuItems()[i].Description = $"You do not have any saved vehicles that belong to the {GetMenu().GetMenuItems()[i].Text} category.";
+                    GetMenu().GetMenuItems()[i].Description = $"У вас нет сохраненных автомобилей из категории {GetMenu().GetMenuItems()[i].Text} .";
                 }
             }
 
@@ -270,7 +270,7 @@ namespace vMenuClient
                     int vclass = GetVehicleClassFromName(sv.Value.model);
                     Menu menu = subMenus[vclass];
 
-                    MenuItem savedVehicleBtn = new MenuItem(sv.Key.Substring(4), $"Manage this saved vehicle.")
+                    MenuItem savedVehicleBtn = new MenuItem(sv.Key.Substring(4), $"Управление над сохраненными автомобилями.")
                     {
                         Label = $"({sv.Value.name}) →→→"
                     };
@@ -280,7 +280,7 @@ namespace vMenuClient
                 }
                 else
                 {
-                    MenuItem missingVehItem = new MenuItem(sv.Key.Substring(4), "This model could not be found in the game files. Most likely because this is an addon vehicle and it's currently not streamed by the server.")
+                    MenuItem missingVehItem = new MenuItem(sv.Key.Substring(4), "Данный автомобиль не удалось найти в файлах игры.")
                     {
                         Label = "(" + sv.Value.name + ")",
                         Enabled = false,
