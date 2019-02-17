@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -632,7 +632,7 @@ namespace vMenuClient
                 prefs.Add("pvEnableVehicleBlip", PVEnableVehicleBlip);
             }
 
-            Notify.Success("Your settings have been saved.");
+            Notify.Success("Ваши настройки были сохранены.");
 
             Log($"Saving preferences:\n{JsonConvert.SerializeObject(prefs)}");
         }
