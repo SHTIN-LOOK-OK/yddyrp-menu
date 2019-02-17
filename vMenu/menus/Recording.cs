@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,7 +37,7 @@ namespace vMenuClient
                 {
                     if (IsRecording())
                     {
-                        Notify.Alert("You are already recording a clip, you need to stop recording first before you can start recording again!");
+                        Notify.Alert("Вы уже записываете клип, Вам нужно сначала остановить запись, прежде чем Вы сможете начать её снова.");
                     }
                     else
                     {
@@ -48,7 +48,7 @@ namespace vMenuClient
                 {
                     if (!IsRecording())
                     {
-                        Notify.Alert("You are currently NOT recording a clip, you need to start recording first before you can stop and save a clip.");
+                        Notify.Alert("В данный момент вы не записываете клип, сначала Вам нужно начать запись, прежде чем Вы сможете остановить её и сохранить.");
                     }
                     else
                     {
