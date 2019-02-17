@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,8 +17,8 @@ namespace vMenuClient
     {
         // Variables
         private Menu menu = null;
-        private Menu SavedLoadoutsMenu = new Menu("Saved Loadouts", "saved weapon loadouts list");
-        private Menu ManageLoadoutMenu = new Menu("Mange Loadout", "Manage saved weapon loadout");
+        private Menu SavedLoadoutsMenu = new Menu("Список сохранений", "Список сохраненного оружия");
+        private Menu ManageLoadoutMenu = new Menu("Управление сохранениями", "Управление сохраненным оружием");
         public bool WeaponLoadoutsSetLoadoutOnRespawn { get; private set; } = UserDefaults.WeaponLoadoutsSetLoadoutOnRespawn;
 
         private Dictionary<string, List<ValidWeapon>> SavedWeapons = new Dictionary<string, List<ValidWeapon>>();
@@ -61,14 +61,14 @@ namespace vMenuClient
         /// </summary>
         public void CreateMenu()
         {
-            menu = new Menu(Game.Player.Name, "weapon loadouts management");
+            menu = new Menu(Game.Player.Name, "Управление сохранненым оружием");
 
             MenuController.AddSubmenu(menu, SavedLoadoutsMenu);
             MenuController.AddSubmenu(SavedLoadoutsMenu, ManageLoadoutMenu);
 
-            MenuItem saveLoadout = new MenuItem("Save Loadout", "Save your current weapons into a new loadout slot.");
-            MenuItem savedLoadoutsMenuBtn = new MenuItem("Manage Loadouts", "Manage saved weapon loadouts.") { Label = "→→→" };
-            MenuCheckboxItem enableDefaultLoadouts = new MenuCheckboxItem("Restore Default Loadout On Respawn", "If you've set a loadout as default loadout, then your loadout will be equipped automatically whenever you (re)spawn.", WeaponLoadoutsSetLoadoutOnRespawn);
+            MenuItem saveLoadout = new MenuItem("Сохранить оружие", "Сохранить всё ваше оружие.");
+            MenuItem savedLoadoutsMenuBtn = new MenuItem("Управление сохранениями", "Управление сохранениями.") { Label = "→→→" };
+            MenuCheckboxItem enableDefaultLoadouts = new MenuCheckboxItem("Восстанавливать оружие при спавне", "Если вы установите определенное сохранение, что вы будете спавниться вместе с ним.", WeaponLoadoutsSetLoadoutOnRespawn);
 
             menu.AddMenuItem(saveLoadout);
             menu.AddMenuItem(savedLoadoutsMenuBtn);
@@ -125,7 +125,7 @@ namespace vMenuClient
             {
                 if (item == saveLoadout)
                 {
-                    string name = await GetUserInput("Enter a save name", 30);
+                    string name = await GetUserInput("Введите название сохранения", 30);
                     if (string.IsNullOrEmpty(name))
                     {
                         Notify.Error(CommonErrors.InvalidInput);
@@ -141,7 +141,7 @@ namespace vMenuClient
                             if (SaveWeaponLoadout("vmenu_string_saved_weapon_loadout_" + name))
                             {
                                 Log("saveweapons called from menu select (save loadout button)");
-                                Notify.Success($"Your weapons have been saved as ~g~<C>{name}</C>~s~.");
+                                Notify.Success($"Ваше оружие было сохранено как ~g~<C>{name}</C>~s~.");
                             }
                             else
                             {
@@ -165,7 +165,7 @@ namespace vMenuClient
                     }
                     else if (item == renameLoadout || item == cloneLoadout) // rename or clone
                     {
-                        string newName = await GetUserInput("Enter a save name", SelectedSavedLoadoutName.Replace("vmenu_string_saved_weapon_loadout_", ""), 30);
+                        string newName = await GetUserInput("Введите название сохранения", SelectedSavedLoadoutName.Replace("vmenu_string_saved_weapon_loadout_", ""), 30);
                         if (string.IsNullOrEmpty(newName))
                         {
                             Notify.Error(CommonErrors.InvalidInput);
@@ -179,7 +179,7 @@ namespace vMenuClient
                             else
                             {
                                 SetResourceKvp("vmenu_string_saved_weapon_loadout_" + newName, JsonConvert.SerializeObject(weapons));
-                                Notify.Success($"Your weapons loadout has been {(item == renameLoadout ? "renamed" : "cloned")} to ~g~<C>{newName}</C>~s~.");
+                                Notify.Success($"Ваше сохраниние было {(item == renameLoadout ? "переименовано" : "клонировано")} to ~g~<C>{newName}</C>~s~.");
 
                                 if (item == renameLoadout)
                                     DeleteResourceKvp(SelectedSavedLoadoutName);
@@ -196,30 +196,30 @@ namespace vMenuClient
                     }
                     else if (item == replaceLoadout) // replace
                     {
-                        if (replaceLoadout.Label == "Are you sure?")
+                        if (replaceLoadout.Label == "Вы уверены?")
                         {
                             replaceLoadout.Label = "";
                             SaveWeaponLoadout(SelectedSavedLoadoutName);
                             Log("save weapons called from replace loadout");
-                            Notify.Success("Your saved loadout has been replaced with your current weapons.");
+                            Notify.Success("Ваше текущее оружие было заменено на оружие из сохранения");
                         }
                         else
                         {
-                            replaceLoadout.Label = "Are you sure?";
+                            replaceLoadout.Label = "Вы уверены?";
                         }
                     }
                     else if (item == deleteLoadout) // delete
                     {
-                        if (deleteLoadout.Label == "Are you sure?")
+                        if (deleteLoadout.Label == "Вы уверены?")
                         {
                             deleteLoadout.Label = "";
                             DeleteResourceKvp(SelectedSavedLoadoutName);
                             ManageLoadoutMenu.GoBack();
-                            Notify.Success("Your saved loadout has been deleted.");
+                            Notify.Success("Ваше сохранение было удалено");
                         }
                         else
                         {
-                            deleteLoadout.Label = "Are you sure?";
+                            deleteLoadout.Label = "Вы уверены?";
                         }
                     }
                 }
