@@ -1,6 +1,6 @@
 |Последний билд|
 |:-:|
-|[![Build status](https://ci.appveyor.com/api/projects/status/inf2kinljmp8a5ul?svg=true)](https://ci.appveyor.com/project/TomGrobbe/vmenu)|
+|[![Build status](https://ci.appveyor.com/api/projects/status/a9sybo9yvn3sxyqk?svg=true)])|
 
 --------
 
