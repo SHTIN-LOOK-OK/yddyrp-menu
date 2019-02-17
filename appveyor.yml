@@ -10,8 +10,6 @@ build:
   project: vMenu.sln
   verbosity: minimal
 after_build:
-  - cmd: copy README.md ..\build\README.md
-  - cmd: copy LICENSE.md ..\build\LICENSE.md
   - ps: Invoke-WebRequest -OutFile '..\build\__resource.lua' https://vespura.com/vmenu/__resource.lua
   - cmd: if %APPVEYOR_REPO_TAG%==true (appveyor SetVariable -Name VERSION_NAME -Value %APPVEYOR_REPO_TAG_NAME%) else (appveyor SetVariable -Name VERSION_NAME -Value beta)
   - cmd: 7z a vMenu-%VERSION_NAME%.zip -r ..\build\*
