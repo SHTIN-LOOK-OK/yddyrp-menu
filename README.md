@@ -1,6 +1,6 @@
 |Последний билд|
 |:-:|
-|https://travis-ci.com/h0kkaido/yddyrp-menu.svg?token=sse936bpkXWNZovws8DS&branch=master)|
+|(https://ci.appveyor.com/api/projects/status/a9sybo9yvn3sxyqk?svg=true)|
 
 --------
 
