@@ -439,7 +439,7 @@ namespace vMenuClient
                 if (Game.IsDisabledControlJustReleased(0, Control.PhoneCancel) && MpPedCustomization.DisableBackButton)
                 {
                     await Delay(0);
-                    Notify.Alert("You must save your ped first before exiting, or click the ~r~Exit Without Saving~s~ button.");
+                    Notify.Alert("Перед выходом Вы должны сохранить персонажа, либо нажать кнопку ~r~Выйти без сохранения~s~.");
                 }
 
                 if (Game.CurrentInputMode == InputMode.MouseAndKeyboard)
@@ -467,7 +467,7 @@ namespace vMenuClient
                                 {
                                     NoClipEnabled = false;
                                     MenuController.DontOpenAnyMenu = NoClipEnabled;
-                                    Notify.Error("This vehicle does not exist (somehow) or you need to be the driver of this vehicle to enable noclip!");
+                                    Notify.Error("Вы должны быть водителем автомобиля чтобы включить noclip");
                                 }
                             }
                             else
@@ -609,7 +609,7 @@ namespace vMenuClient
             {
                 TimeOptionsMenu = new TimeOptions();
                 Menu menu = TimeOptionsMenu.GetMenu();
-                MenuItem button = new MenuItem("Time Options", "Change the time, and edit other time related options.")
+                MenuItem button = new MenuItem("Настройки времени", "Изменить время и другие параметры связанные с ним.")
                 {
                     Label = "→→→"
                 };
@@ -622,7 +622,7 @@ namespace vMenuClient
             {
                 WeatherOptionsMenu = new WeatherOptions();
                 Menu menu = WeatherOptionsMenu.GetMenu();
-                MenuItem button = new MenuItem("Weather Options", "Change all weather related options here.")
+                MenuItem button = new MenuItem("Настройки погоды", "Изменить все параметры связанные с погодой.")
                 {
                     Label = "→→→"
                 };
