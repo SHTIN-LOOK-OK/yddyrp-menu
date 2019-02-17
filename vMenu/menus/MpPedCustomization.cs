@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -426,28 +426,28 @@ namespace vMenuClient
             {
                 beardStyles.Enabled = false;
                 beardStyles.LeftIcon = MenuItem.Icon.LOCK;
-                beardStyles.Description = "This is not available for female characters.";
+                beardStyles.Description = "Это не доступно для персонажей женского пола.";
 
                 beardOpacity.Enabled = false;
                 beardOpacity.LeftIcon = MenuItem.Icon.LOCK;
-                beardOpacity.Description = "This is not available for female characters.";
+                beardOpacity.Description = "Это не доступно для персонажей женского пола.";
 
                 beardColor.Enabled = false;
                 beardColor.LeftIcon = MenuItem.Icon.LOCK;
-                beardColor.Description = "This is not available for female characters.";
+                beardColor.Description = "Это не доступно для персонажей женского пола.";
 
 
                 chestHairStyle.Enabled = false;
                 chestHairStyle.LeftIcon = MenuItem.Icon.LOCK;
-                chestHairStyle.Description = "This is not available for female characters.";
+                chestHairStyle.Description = "Это не доступно для персонажей женского пола.";
 
                 chestHairOpacity.Enabled = false;
                 chestHairOpacity.LeftIcon = MenuItem.Icon.LOCK;
-                chestHairOpacity.Description = "This is not available for female characters.";
+                chestHairOpacity.Description = "Это не доступно для персонажей женского пола.";
 
                 chestHairColor.Enabled = false;
                 chestHairColor.LeftIcon = MenuItem.Icon.LOCK;
-                chestHairColor.Description = "This is not available for female characters.";
+                chestHairColor.Description = "Это не доступно для персонажей женского пола.";
             }
 
             #endregion
@@ -471,7 +471,7 @@ namespace vMenuClient
 
                     int maxTextures = GetNumberOfPedTextureVariations(Game.PlayerPed.Handle, i, currentVariationIndex);
 
-                    MenuListItem listItem = new MenuListItem(clothingCategoryNames[i], items, currentVariationIndex, $"Select a drawable using the arrow keys and press ~o~enter~s~ to cycle through all available textures. Currently selected texture: #{currentVariationTextureIndex + 1} (of {maxTextures}).");
+                    MenuListItem listItem = new MenuListItem(clothingCategoryNames[i], items, currentVariationIndex, $"Используйте стрелки для выбора Drawable и ~o~Enter~s~ для выбора доступных текстур. Текущая выбранная текстура: #{currentVariationTextureIndex + 1} (of {maxTextures}).");
                     clothesMenu.AddMenuItem(listItem);
                 }
             }
@@ -501,12 +501,12 @@ namespace vMenuClient
                 if (GetPedPropIndex(Game.PlayerPed.Handle, propId) != -1)
                 {
                     int maxPropTextures = GetNumberOfPedPropTextureVariations(Game.PlayerPed.Handle, propId, currentProp);
-                    MenuListItem propListItem = new MenuListItem($"{propNames[x]}", propsList, currentProp, $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures. Currently selected texture: #{currentPropTexture + 1} (of {maxPropTextures}).");
+                    MenuListItem propListItem = new MenuListItem($"{propNames[x]}", propsList, currentProp, $"Используйте стрелки для выбора айтемов и ~o~Enter~s~  для выбора доступных текстур. Текущая выбранная текстура: #{currentPropTexture + 1} (of {maxPropTextures}).");
                     propsMenu.AddMenuItem(propListItem);
                 }
                 else
                 {
-                    MenuListItem propListItem = new MenuListItem($"{propNames[x]}", propsList, currentProp, "Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures.");
+                    MenuListItem propListItem = new MenuListItem($"{propNames[x]}", propsList, currentProp, "Используйте стрелки для выбора айтемов и ~o~Enter~s~  для выбора доступных текстур.");
                     propsMenu.AddMenuItem(propListItem);
                 }
 
@@ -632,7 +632,7 @@ namespace vMenuClient
                 }
             }
 
-            const string tatDesc = "Cycle through the list to preview tattoos. If you like one, press enter to select it, selecting it will add the tattoo if you don't already have it. If you already have that tattoo then the tattoo will be removed.";
+            const string tatDesc = "Перейдите по списку для осмотра тутоировок. Выберите понравившеесю татуировку и нажмите Enter чтобы выбрать её.";
             MenuListItem headTatts = new MenuListItem("Голова", headTattoosList, 0, tatDesc);
             MenuListItem torsoTatts = new MenuListItem("Торс", torsoTattoosList, 0, tatDesc);
             MenuListItem leftArmTatts = new MenuListItem("Левая рука", leftArmTattoosList, 0, tatDesc);
@@ -667,18 +667,18 @@ namespace vMenuClient
                 string json = JsonConvert.SerializeObject(currentCharacter);
                 if (StorageManager.SaveJsonData(currentCharacter.SaveName, json, true))
                 {
-                    Notify.Success("Your character was saved successfully.");
+                    Notify.Success("Ваш персонаж был сохранен.");
                     return true;
                 }
                 else
                 {
-                    Notify.Error("Your character could not be saved. Reason unknown. :(");
+                    Notify.Error("Ваш персонаж не может быть сохранен по неизвестной причине. :(");
                     return false;
                 }
             }
             else
             {
-                string name = await GetUserInput(windowTitle: "Enter a save name.", maxInputLength: 30);
+                string name = await GetUserInput(windowTitle: "Введите имя сохранения.", maxInputLength: 30);
                 if (string.IsNullOrEmpty(name))
                 {
                     Notify.Error(CommonErrors.InvalidInput);
@@ -691,13 +691,13 @@ namespace vMenuClient
 
                     if (StorageManager.SaveJsonData("mp_ped_" + name, json, false))
                     {
-                        Notify.Success($"Your character (~g~<C>{name}</C>~s~) has been saved.");
+                        Notify.Success($"Ваш персонаж (~g~<C>{name}</C>~s~) был сохранен.");
                         Log($"Saved Character {name}. Data: {json}");
                         return true;
                     }
                     else
                     {
-                        Notify.Error($"Saving failed, most likely because this name (~y~<C>{name}</C>~s~) is already in use.");
+                        Notify.Error($"Сохранение не удалось посколько имя (~y~<C>{name}</C>~s~) уже используется.");
                         return false;
                     }
                 }
@@ -1103,7 +1103,7 @@ namespace vMenuClient
                 int maxTextures = GetNumberOfPedTextureVariations(Game.PlayerPed.Handle, componentIndex, newSelectionIndex);
 
                 currentCharacter.DrawableVariations.clothes[componentIndex] = new KeyValuePair<int, int>(newSelectionIndex, newTextureIndex);
-                listItem.Description = $"Select a drawable using the arrow keys and press ~o~enter~s~ to cycle through all available textures. Currently selected texture: #{newTextureIndex + 1} (of {maxTextures}).";
+                listItem.Description = $"Используйте стрелки для выбора Drawable и ~o~Enter~s~ для выбора доступных текстур. Текущая выбранная текстура: #{newTextureIndex + 1} (of {maxTextures}).";
             };
 
             clothesMenu.OnListItemSelect += (sender, listItem, listIndex, realIndex) =>
@@ -1125,7 +1125,7 @@ namespace vMenuClient
                 int maxTextures = GetNumberOfPedTextureVariations(Game.PlayerPed.Handle, componentIndex, listIndex);
 
                 currentCharacter.DrawableVariations.clothes[componentIndex] = new KeyValuePair<int, int>(listIndex, newTextureIndex);
-                listItem.Description = $"Select a drawable using the arrow keys and press ~o~enter~s~ to cycle through all available textures. Currently selected texture: #{newTextureIndex + 1} (of {maxTextures}).";
+                listItem.Description = $"Используйте стрелки для выбора Drawable и ~o~Enter~s~ для выбора доступных текстур. Текущая выбранная текстура: #{newTextureIndex + 1} (of {maxTextures}).";
             };
             #endregion
 
@@ -1152,7 +1152,7 @@ namespace vMenuClient
                         currentCharacter.PropVariations.props = new Dictionary<int, KeyValuePair<int, int>>();
                     }
                     currentCharacter.PropVariations.props[propIndex] = new KeyValuePair<int, int>(-1, -1);
-                    listItem.Description = $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures.";
+                    listItem.Description = $"Используйте стрелки для выбора айтемов и ~o~Enter~s~  для выбора доступных текстур.";
                 }
                 else
                 {
@@ -1164,12 +1164,12 @@ namespace vMenuClient
                     currentCharacter.PropVariations.props[propIndex] = new KeyValuePair<int, int>(newSelectionIndex, textureIndex);
                     if (GetPedPropIndex(Game.PlayerPed.Handle, propIndex) == -1)
                     {
-                        listItem.Description = $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures.";
+                        listItem.Description = $"Используйте стрелки для выбора айтемов и ~o~Enter~s~  для выбора доступных текстур.";
                     }
                     else
                     {
                         int maxPropTextures = GetNumberOfPedPropTextureVariations(Game.PlayerPed.Handle, propIndex, newSelectionIndex);
-                        listItem.Description = $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures. Currently selected texture: #{textureIndex + 1} (of {maxPropTextures}).";
+                        listItem.Description = $"Используйте стрелки для выбора айтемов и ~o~Enter~s~  для выбора доступных текстур. Выбранная текстура: #{textureIndex + 1} (of {maxPropTextures}).";
                     }
                 }
             };
@@ -1197,7 +1197,7 @@ namespace vMenuClient
                         currentCharacter.PropVariations.props = new Dictionary<int, KeyValuePair<int, int>>();
                     }
                     currentCharacter.PropVariations.props[propIndex] = new KeyValuePair<int, int>(-1, -1);
-                    listItem.Description = $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures.";
+                    listItem.Description = $"Используйте стрелки для выбора айтемов и ~o~Enter~s~  для выбора доступных текстур.";
                 }
                 else
                 {
@@ -1209,12 +1209,12 @@ namespace vMenuClient
                     currentCharacter.PropVariations.props[propIndex] = new KeyValuePair<int, int>(listIndex, newTextureIndex);
                     if (GetPedPropIndex(Game.PlayerPed.Handle, propIndex) == -1)
                     {
-                        listItem.Description = $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures.";
+                        listItem.Description = $"Используйте стрелки для выбора айтемов и ~o~Enter~s~  для выбора доступных текстур.";
                     }
                     else
                     {
                         int maxPropTextures = GetNumberOfPedPropTextureVariations(Game.PlayerPed.Handle, propIndex, listIndex);
-                        listItem.Description = $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures. Currently selected texture: #{newTextureIndex + 1} (of {maxPropTextures}).";
+                        listItem.Description = $"Используйте стрелки для выбора айтемов и ~o~Enter~s~  для выбора доступных текстур. Выбранная текстура: #{newTextureIndex + 1} (of {maxPropTextures}).";
                     }
                 }
                 //propsMenu.UpdateScaleform();
@@ -1455,12 +1455,12 @@ namespace vMenuClient
                     KeyValuePair<string, string> tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.HeadTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"Татуировка #{tattooIndex + 1} была ~r~удалена~s~.");
                         currentCharacter.PedTatttoos.HeadTattoos.Remove(tat);
                     }
                     else
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~g~added~s~.");
+                        Subtitle.Custom($"Татуировка #{tattooIndex + 1} была ~g~добавлена~s~.");
                         currentCharacter.PedTatttoos.HeadTattoos.Add(tat);
                     }
                 }
@@ -1470,12 +1470,12 @@ namespace vMenuClient
                     KeyValuePair<string, string> tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.TorsoTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"Татуировка #{tattooIndex + 1} была ~r~удалена~s~.");
                         currentCharacter.PedTatttoos.TorsoTattoos.Remove(tat);
                     }
                     else
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~g~added~s~.");
+                        Subtitle.Custom($"Татуировка #{tattooIndex + 1} была ~g~добавлена~s~.");
                         currentCharacter.PedTatttoos.TorsoTattoos.Add(tat);
                     }
                 }
@@ -1485,7 +1485,7 @@ namespace vMenuClient
                     KeyValuePair<string, string> tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.LeftArmTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"Татуировка #{tattooIndex + 1} была ~r~удалена~s~.");
                         currentCharacter.PedTatttoos.LeftArmTattoos.Remove(tat);
                     }
                     else
@@ -1500,7 +1500,7 @@ namespace vMenuClient
                     KeyValuePair<string, string> tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.RightArmTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"Татуировка #{tattooIndex + 1} была ~r~удалена~s~.");
                         currentCharacter.PedTatttoos.RightArmTattoos.Remove(tat);
                     }
                     else
@@ -1515,7 +1515,7 @@ namespace vMenuClient
                     KeyValuePair<string, string> tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.LeftLegTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"Татуировка #{tattooIndex + 1} была ~r~удалена~s~.");
                         currentCharacter.PedTatttoos.LeftLegTattoos.Remove(tat);
                     }
                     else
@@ -1530,7 +1530,7 @@ namespace vMenuClient
                     KeyValuePair<string, string> tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.RightLegTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"Татуировка #{tattooIndex + 1} была ~r~удалена~s~.");
                         currentCharacter.PedTatttoos.RightLegTattoos.Remove(tat);
                     }
                     else
@@ -1547,7 +1547,7 @@ namespace vMenuClient
             // eventhandler for when a tattoo is selected.
             tattoosMenu.OnItemSelect += (sender, item, index) =>
             {
-                Notify.Success("All tattoos have been removed.");
+                Notify.Success("Все татуировки были удалены.");
                 currentCharacter.PedTatttoos.HeadTattoos.Clear();
                 currentCharacter.PedTatttoos.TorsoTattoos.Clear();
                 currentCharacter.PedTatttoos.LeftArmTattoos.Clear();
@@ -1558,7 +1558,7 @@ namespace vMenuClient
             };
 
             // eventhandler for when the tattoos menu is openend.
-            tattoosMenu.OnMenuOpen += (sender) => { Notify.Info("TIP, take a look at the instructional buttons! If you can't see a specific tattoo, try turning the camera using those buttons (Q & E)."); };
+            tattoosMenu.OnMenuOpen += (sender) => { Notify.Info("Если вы не видите определенной татуировки, попробуйте повернуть кмеру с помощью этих клавиш (Q & E)."); };
             #endregion
 
 
@@ -1922,7 +1922,7 @@ namespace vMenuClient
                 else if (item == clonePed)
                 {
                     var tmpCharacter = StorageManager.GetSavedMpCharacterData("mp_ped_" + selectedSavedCharacterManageName);
-                    string name = await GetUserInput(windowTitle: "Enter a name for the cloned character", defaultText: tmpCharacter.SaveName.Substring(7), maxInputLength: 30);
+                    string name = await GetUserInput(windowTitle: "Введите название для клонированного персонажа", defaultText: tmpCharacter.SaveName.Substring(7), maxInputLength: 30);
                     if (string.IsNullOrEmpty(name))
                     {
                         Notify.Error(CommonErrors.InvalidSaveName);
@@ -1938,12 +1938,12 @@ namespace vMenuClient
                             tmpCharacter.SaveName = "mp_ped_" + name;
                             if (StorageManager.SaveJsonData("mp_ped_" + name, JsonConvert.SerializeObject(tmpCharacter), false))
                             {
-                                Notify.Success($"Your character has been cloned. The name of the cloned character is: ~g~<C>{name}</C>~s~.");
+                                Notify.Success($"Ваш персонаж был клонирован. Имя клонированного персонажа: ~g~<C>{name}</C>~s~.");
                                 UpdateSavedPedsMenu();
                             }
                             else
                             {
-                                Notify.Error("The clone could not be created, reason unknown. Does a character already exist with that name? :(");
+                                Notify.Error("Не удалось клонировать персонажа, возможно существует персонаж с таким именем. :(");
                             }
                         }
                     }
@@ -1951,7 +1951,7 @@ namespace vMenuClient
                 else if (item == renameCharacter)
                 {
                     var tmpCharacter = StorageManager.GetSavedMpCharacterData("mp_ped_" + selectedSavedCharacterManageName);
-                    string name = await GetUserInput(windowTitle: "Enter a new character name", defaultText: tmpCharacter.SaveName.Substring(7), maxInputLength: 30);
+                    string name = await GetUserInput(windowTitle: "Введите имя персонажа", defaultText: tmpCharacter.SaveName.Substring(7), maxInputLength: 30);
                     if (string.IsNullOrEmpty(name))
                     {
                         Notify.Error(CommonErrors.InvalidInput);
@@ -1968,7 +1968,7 @@ namespace vMenuClient
                             if (StorageManager.SaveJsonData("mp_ped_" + name, JsonConvert.SerializeObject(tmpCharacter), false))
                             {
                                 StorageManager.DeleteSavedStorageItem("mp_ped_" + selectedSavedCharacterManageName);
-                                Notify.Success($"Your character has been renamed to ~g~<C>{name}</C>~s~.");
+                                Notify.Success($"Ваш персонаж был удален ~g~<C>{name}</C>~s~.");
                                 UpdateSavedPedsMenu();
                                 while (!MenuController.IsAnyMenuOpen())
                                 {
@@ -1978,7 +1978,7 @@ namespace vMenuClient
                             }
                             else
                             {
-                                Notify.Error("Something went wrong while renaming your character, your old character will NOT be deleted because of this.");
+                                Notify.Error("Что-то прошло не так при переименовании Вашего персонажа. Ваш персонаж не будет удален. ");
                             }
                         }
                     }
@@ -1989,7 +1989,7 @@ namespace vMenuClient
                     {
                         delPed.Label = "";
                         DeleteResourceKvp("mp_ped_" + selectedSavedCharacterManageName);
-                        Notify.Success("Your saved character has been deleted.");
+                        Notify.Success("Ваш персонаж был удален.");
                         manageSavedCharacterMenu.GoBack();
                         UpdateSavedPedsMenu();
                         manageSavedCharacterMenu.RefreshIndex();
@@ -2001,7 +2001,7 @@ namespace vMenuClient
                 }
                 else if (item == setAsDefaultPed)
                 {
-                    Notify.Success($"Your character <C>{selectedSavedCharacterManageName}</C> will now be used as your default character whenever you (re)spawn.");
+                    Notify.Success($"Ваш персонаж <C>{selectedSavedCharacterManageName}</C> теперь будет использоваться по умолчанию.");
                     SetResourceKvp("vmenu_default_character", "mp_ped_" + selectedSavedCharacterManageName);
                 }
 
@@ -2058,14 +2058,14 @@ namespace vMenuClient
                 foreach (string item in names)
                 {
                     var tmpData = StorageManager.GetSavedMpCharacterData("mp_ped_" + item);
-                    MenuItem btn = new MenuItem(item, "Click to spawn, edit, clone, rename or delete this saved character.")
+                    MenuItem btn = new MenuItem(item, "Нажмите чтобы создать, отредактировать, клонировать, переименовть или удалить сохрененного персонажа.")
                     {
                         Label = $"({(tmpData.IsMale ? "M" : "F")}) →→→"
                     };
                     if (defaultChar == "mp_ped_" + item)
                     {
                         btn.LeftIcon = MenuItem.Icon.TICK;
-                        btn.Description += " ~g~This character is currently set as your default character and will be used whenever you (re)spawn.";
+                        btn.Description += " ~g~Этот персонаж установлен по умолчанию.";
                     }
                     savedCharactersMenu.AddMenuItem(btn);
                     MenuController.BindMenuItem(savedCharactersMenu, manageSavedCharacterMenu, btn);
