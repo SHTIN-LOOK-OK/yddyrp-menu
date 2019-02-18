@@ -294,7 +294,7 @@ namespace vMenuClient
                 int playerPed = GetPlayerPed(playerId);
                 if (Game.PlayerPed.Handle == playerPed)
                 {
-                    Notify.Error("Вы ~r~~h~не можете~h~ ~s~телепортироваться к сабе самому!");
+                    Notify.Error("Вы ~r~~h~не можете~h~ ~s~телепортироваться к себе самому!");
                     return;
                 }
 
