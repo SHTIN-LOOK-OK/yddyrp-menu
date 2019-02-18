@@ -69,8 +69,8 @@ namespace vMenuClient
             menu = new Menu("YDDY:RP", "Прочие настройки");
 
             // teleport menu
-            Menu teleportMenu = new Menu(Game.Player.Name, "Teleport Locations");
-            MenuItem teleportMenuBtn = new MenuItem("Teleport Locations", "Teleport to pre-configured locations, added by the server owner.");
+            Menu teleportMenu = new Menu(Game.Player.Name, "Локации для телепорта");
+            MenuItem teleportMenuBtn = new MenuItem("Локации для телепорта", "Телепорт в места добавленные админимтратором сервера.");
             MenuController.AddSubmenu(menu, teleportMenu);
             MenuController.BindMenuItem(menu, teleportMenu, teleportMenuBtn);
 
@@ -81,19 +81,19 @@ namespace vMenuClient
             MenuController.BindMenuItem(menu, keybindMenu, keybindMenuBtn);
 
             // keybind settings menu items
-            MenuCheckboxItem kbTpToWaypoint = new MenuCheckboxItem("Teleport To Waypoint", "Teleport to your waypoint when pressing the keybind. By default, this keybind is set to ~r~F7~s~, server owners are able to change this however so ask them if you don't know what it is.", KbTpToWaypoint);
-            MenuCheckboxItem kbDriftMode = new MenuCheckboxItem("Drift Mode", "Makes your vehicle have almost no traction while holding left shift on keyboard, or X on controller.", KbDriftMode);
+            MenuCheckboxItem kbTpToWaypoint = new MenuCheckboxItem("Телепорт на метку", "Телепортирует Вас к метке на карте при нажатии клавиши ~r~F7", KbTpToWaypoint);
+            MenuCheckboxItem kbDriftMode = new MenuCheckboxItem("Дрифт мод", "При удерживании ~r~Left Shift~s~ снижает тягу автомобиля до нуля", KbDriftMode);
             MenuItem backBtn = new MenuItem("Назад");
 
             // Create the menu items.
-            MenuItem tptowp = new MenuItem("Teleport To Waypoint", "Teleport to the waypoint on your map.");
+            MenuItem tptowp = new MenuItem("Телепорт на метку", "Телепорт к метке указанной на вашей карте.");
             MenuCheckboxItem rightAlignMenu = new MenuCheckboxItem("Меню справа", "", MiscRightAlignMenu);
             MenuCheckboxItem speedKmh = new MenuCheckboxItem("Спидометр в км/ч", "", ShowSpeedoKmh);
             MenuCheckboxItem speedMph = new MenuCheckboxItem("Спидометр в м/ч", "", ShowSpeedoMph);
-            MenuCheckboxItem coords = new MenuCheckboxItem("Show Coordinates", "Show your current coordinates at the top of your screen.", ShowCoordinates);
+            MenuCheckboxItem coords = new MenuCheckboxItem("Показать координаты", "Показать текущие координаты сверху экрана.", ShowCoordinates);
             MenuCheckboxItem hideRadar = new MenuCheckboxItem("Спрятать радар", "", HideRadar);
             MenuCheckboxItem hideHud = new MenuCheckboxItem("Спрятать худ", "", HideHud);
-            MenuCheckboxItem showLocation = new MenuCheckboxItem("Location Display", "Shows your current location and heading, as well as the nearest cross road. Similar like PLD. ~r~Warning: This feature (can) take about 1.6 FPS when running at 60 Hz.", ShowLocation) { LeftIcon = MenuItem.Icon.WARNING };
+            MenuCheckboxItem showLocation = new MenuCheckboxItem("Показывать локации", "Показывает ваше текущее местоположение, сторону в которое вы смотрите и ближайщий перекресток.", ShowLocation) { LeftIcon = MenuItem.Icon.WARNING };
             MenuCheckboxItem drawTime = new MenuCheckboxItem("Показывать игровое время", "", DrawTimeOnScreen);
             MenuItem saveSettings = new MenuItem("Сохранить настройки", "")
             {
@@ -102,7 +102,7 @@ namespace vMenuClient
             MenuCheckboxItem joinQuitNotifs = new MenuCheckboxItem("Уведомления о входе / выходе", "", JoinQuitNotifications);
             MenuCheckboxItem deathNotifs = new MenuCheckboxItem("Уведомления о смерти", "", DeathNotifications);
             MenuCheckboxItem nightVision = new MenuCheckboxItem("Ночное видение", "", false);
-            MenuCheckboxItem thermalVision = new MenuCheckboxItem("Toggle Thermal Vision", "Enable or disable thermal vision.", false);
+            MenuCheckboxItem thermalVision = new MenuCheckboxItem("Включить тепловизор", "Включить или выключить тепловизор.", false);
             MenuCheckboxItem modelDimensions = new MenuCheckboxItem("Показывать размеры т/с", "", ShowVehicleModelDimensions);
 
             MenuItem clearArea = new MenuItem("Очистить зону", "");
@@ -118,8 +118,8 @@ namespace vMenuClient
             connectionSubmenu.AddMenuItem(quitGame);
             connectionSubmenu.AddMenuItem(disconnectFromServer);
 
-            MenuCheckboxItem locationBlips = new MenuCheckboxItem("Location Blips", "Shows blips on the map for some common locations.", ShowLocationBlips);
-            MenuCheckboxItem playerBlips = new MenuCheckboxItem("Show Player Blips", "Shows blips on the map for all players.", ShowPlayerBlips);
+            MenuCheckboxItem locationBlips = new MenuCheckboxItem("Метки локаций", "Показывает метки различных мест на карте.", ShowLocationBlips);
+            MenuCheckboxItem playerBlips = new MenuCheckboxItem("Показывать метки игроков", "Показывает метки всех игроков на карте.", ShowPlayerBlips);
             MenuCheckboxItem respawnDefaultCharacter = new MenuCheckboxItem("Спавниться как MP по умолчанию", "", MiscRespawnDefaultCharacter);
             MenuCheckboxItem restorePlayerAppearance = new MenuCheckboxItem("Восстанавливать внешний вид", "", RestorePlayerAppearance);
             MenuCheckboxItem restorePlayerWeapons = new MenuCheckboxItem("Восстанавливать оружие", "", RestorePlayerWeapons);
@@ -246,7 +246,7 @@ namespace vMenuClient
                             string name = teleport["name"].ToString();
                             float heading = (float)teleport["heading"];
                             Vector3 coordinates = new Vector3((float)teleport["coordinates"]["x"], (float)teleport["coordinates"]["y"], (float)teleport["coordinates"]["z"]);
-                            MenuItem tpBtn = new MenuItem(name, $"Teleport to X: {(int)coordinates.X} Y: {(int)coordinates.Y} Z: {(int)coordinates.Z} HEADING: {(int)heading}.");
+                            MenuItem tpBtn = new MenuItem(name, $"Телепортироваться к X: {(int)coordinates.X} Y: {(int)coordinates.Y} Z: {(int)coordinates.Z} HEADING: {(int)heading}.");
                             teleportMenu.AddMenuItem(tpBtn);
                             tpLocations.Add(coordinates);
                             tpLocationsHeading.Add(heading);
@@ -455,7 +455,7 @@ namespace vMenuClient
                 string json = LoadResourceFile(GetCurrentResourceName(), "config/locations.json");
                 if (string.IsNullOrEmpty(json))
                 {
-                    Notify.Error("An error occurred while loading the locations file.");
+                    Notify.Error("Произошла ошибка при загрузке файла местоположений.");
                 }
                 else
                 {
