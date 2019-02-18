@@ -38,13 +38,13 @@ namespace vMenuClient
             // Create the menu.
             menu = new Menu("YDDY:RP", "Оружие");
 
-            MenuItem getAllWeapons = new MenuItem("Get All Weapons", "Get all weapons.");
+            MenuItem getAllWeapons = new MenuItem("Получить все оружие", "Оружие получено");
             MenuItem removeAllWeapons = new MenuItem("Убрать все оружие", "");
-            MenuCheckboxItem unlimitedAmmo = new MenuCheckboxItem("Unlimited Ammo", "Unlimited ammonition supply.", UnlimitedAmmo);
-            MenuCheckboxItem noReload = new MenuCheckboxItem("No Reload", "Never reload.", NoReload);
-            MenuItem setAmmo = new MenuItem("Set All Ammo Count", "Set the amount of ammo in all your weapons.");
-            MenuItem refillMaxAmmo = new MenuItem("Refill All Ammo", "Give all your weapons max ammo.");
-            MenuItem spawnByName = new MenuItem("Spawn Weapon By Name", "Enter a weapon mode name to spawn.");
+            MenuCheckboxItem unlimitedAmmo = new MenuCheckboxItem("Бесконечные патроны", "Бесконечные патроны ", UnlimitedAmmo);
+            MenuCheckboxItem noReload = new MenuCheckboxItem("Отключить перезарядку", "Перезарядка отключена", NoReload);
+            MenuItem setAmmo = new MenuItem("Установить количество патронов для всего оружия", "Установлено указанное количество патронов");
+            MenuItem refillMaxAmmo = new MenuItem("Пополнить весь боезапас", "Максимальное количество патронов на всем оружие");
+            MenuItem spawnByName = new MenuItem("Получить оружие по названию", "Введите название оружия");
 
             // Add items based on permissions
             if (IsAllowed(Permission.WPGetAll))
@@ -87,13 +87,13 @@ namespace vMenuClient
                 {
                     string name = weapon.Key.ToString();
                     uint model = weapon.Value;
-                    var item = new MenuItem(name, $"Click to add/remove this weapon ({name}) to/from your inventory.");
+                    var item = new MenuItem(name, $"Нажмите что бы добавить/удалить это оружие ({name}) в/из вашего инвентаря");
                     addonWeaponsMenu.AddMenuItem(item);
                     if (!IsWeaponValid(model))
                     {
                         item.Enabled = false;
                         item.LeftIcon = MenuItem.Icon.LOCK;
-                        item.Description = "This model is not available. Please ask the server owner to verify it's being streamed correctly.";
+                        item.Description = "Данная модель недоступна.";
                     }
                 }
                 addonWeaponsMenu.OnItemSelect += (sender, item, index) =>
@@ -116,7 +116,7 @@ namespace vMenuClient
             {
                 addonWeaponsBtn.LeftIcon = MenuItem.Icon.LOCK;
                 addonWeaponsBtn.Enabled = false;
-                addonWeaponsBtn.Description = "This option is not available on this server because you don't have permission to use it, or it is not setup correctly.";
+                addonWeaponsBtn.Description = "Данная опция недоступна для использования, у вас недостаточно прав или была загружена неправильно.";
             }
             #endregion
             addonWeaponsMenu.RefreshIndex();
@@ -176,9 +176,9 @@ namespace vMenuClient
                 MenuItem togglePrimary = new MenuItem("Основной парашют", "");
                 MenuItem toggleReserve = new MenuItem("Резервный парашют", "");
                 MenuListItem primaryChutes = new MenuListItem("Цвет основного", chutes, 0, $"Основной парашют: {chuteDescriptions[0]}");
-                MenuListItem secondaryChutes = new MenuListItem("Цвет резервного", chutes, 0, $"Reserve chute: {chuteDescriptions[0]}");
+                MenuListItem secondaryChutes = new MenuListItem("Цвет резервного", chutes, 0, $"Резервный парашют: {chuteDescriptions[0]}");
                 MenuCheckboxItem unlimitedParachutes = new MenuCheckboxItem("Бесконечные парашюты", "", UnlimitedParachutes);
-                MenuCheckboxItem autoEquipParachutes = new MenuCheckboxItem("Автоматические парашюты", "Получите бесплатный парашют в самолете.", AutoEquipChute);
+                MenuCheckboxItem autoEquipParachutes = new MenuCheckboxItem("Автоматические парашюты", "Получите парашют в самолете.", AutoEquipChute);
 
                 // smoke color list
                 List<string> smokeColorsList = new List<string>()
@@ -216,19 +216,19 @@ namespace vMenuClient
                     {
                         if (HasPedGotWeapon(Game.PlayerPed.Handle, (uint)GetHashKey("gadget_parachute"), false))
                         {
-                            Subtitle.Custom("Primary parachute removed.");
+                            Subtitle.Custom("Основной парашют удален.");
                             RemoveWeaponFromPed(Game.PlayerPed.Handle, (uint)GetHashKey("gadget_parachute"));
                         }
                         else
                         {
-                            Subtitle.Custom("Primary parachute added.");
+                            Subtitle.Custom("Основной парашют добавлен.");
                             GiveWeaponToPed(Game.PlayerPed.Handle, (uint)GetHashKey("gadget_parachute"), 0, false, false);
                         }
                     }
                     else if (item == toggleReserve)
                     {
                         SetPlayerHasReserveParachute(Game.Player.Handle);
-                        Subtitle.Custom("Reserve parachute has been added.");
+                        Subtitle.Custom("Резервный парашют добавлен.");
 
                     }
                 };
@@ -359,7 +359,7 @@ namespace vMenuClient
                     //Log($"[DEBUG LOG] [WEAPON-BUG] {weapon.Name} - {weapon.Perm} = {IsAllowed(weapon.Perm)} & All = {IsAllowed(Permission.WPGetAll)}");
                     #region Create menu for this weapon and add buttons
                     Menu weaponMenu = new Menu("Опции", weapon.Name);
-                    MenuItem weaponItem = new MenuItem(weapon.Name, $"Open the options for ~y~{weapon.Name.ToString()}~s~.")
+                    MenuItem weaponItem = new MenuItem(weapon.Name, $"Открыты настройки для ~y~{weapon.Name.ToString()}~s~.")
                     {
                         Label = "→→→",
                         LeftIcon = MenuItem.Icon.GUN
@@ -375,7 +375,7 @@ namespace vMenuClient
                     if (!IsAllowed(Permission.WPSpawn))
                     {
                         getOrRemoveWeapon.Enabled = false;
-                        getOrRemoveWeapon.Description = "You do not have permission to use this option.";
+                        getOrRemoveWeapon.Description = "У вас недостаточно прав для использования этой опции.";
                         getOrRemoveWeapon.LeftIcon = MenuItem.Icon.LOCK;
                     }
 
@@ -416,7 +416,7 @@ namespace vMenuClient
                             }
                             else
                             {
-                                Notify.Error("You need to get the weapon first!");
+                                Notify.Error("Вам необходимо сначала получить оружие!");
                             }
                         }
                     };
@@ -435,14 +435,14 @@ namespace vMenuClient
                             if (HasPedGotWeapon(Game.PlayerPed.Handle, hash, false))
                             {
                                 RemoveWeaponFromPed(Game.PlayerPed.Handle, hash);
-                                Subtitle.Custom("Weapon removed.");
+                                Subtitle.Custom("Оружие удалено.");
                             }
                             else
                             {
                                 var ammo = 255;
                                 GetMaxAmmo(Game.PlayerPed.Handle, hash, ref ammo);
                                 GiveWeaponToPed(Game.PlayerPed.Handle, hash, ammo, false, true);
-                                Subtitle.Custom("Weapon added.");
+                                Subtitle.Custom("Оружие добавлено.");
                             }
                         }
                         else if (item == fillAmmo)
@@ -455,7 +455,7 @@ namespace vMenuClient
                             }
                             else
                             {
-                                Notify.Error("You need to get the weapon first before re-filling ammo!");
+                                Notify.Error("Вам нужно сначала получить оружие!");
                             }
                         }
                     };
@@ -469,7 +469,7 @@ namespace vMenuClient
                             foreach (var comp in weapon.Components)
                             {
                                 //Log($"{weapon.Name} : {comp.Key}");
-                                MenuItem compItem = new MenuItem(comp.Key, "Click to equip or remove this component.");
+                                MenuItem compItem = new MenuItem(comp.Key, "Нажмите что бы добавить этот компонент.");
                                 weaponComponents.Add(compItem, comp.Key);
                                 weaponMenu.AddMenuItem(compItem);
 
@@ -487,7 +487,7 @@ namespace vMenuClient
                                             {
                                                 RemoveWeaponComponentFromPed(Game.PlayerPed.Handle, Weapon.Hash, componentHash);
 
-                                                Subtitle.Custom("Component removed.");
+                                                Subtitle.Custom("Компонент добавлен.");
                                             }
                                             else
                                             {
@@ -501,12 +501,12 @@ namespace vMenuClient
                                                 SetAmmoInClip(Game.PlayerPed.Handle, Weapon.Hash, clipAmmo);
 
                                                 SetPedAmmo(Game.PlayerPed.Handle, Weapon.Hash, ammo);
-                                                Subtitle.Custom("Component equiped.");
+                                                Subtitle.Custom("Компонент экипирован.");
                                             }
                                         }
                                         else
                                         {
-                                            Notify.Error("You need to get the weapon first before you can modify it.");
+                                            Notify.Error("Вам необходимо сначала получить оружие!");
                                         }
                                     }
                                 };
@@ -575,49 +575,49 @@ namespace vMenuClient
             if (handGuns.Size == 0)
             {
                 handGunsBtn.LeftIcon = MenuItem.Icon.LOCK;
-                handGunsBtn.Description = "The server owner removed the permissions for all weapons in this category.";
+                handGunsBtn.Description = "У вас недостаточно полномочий для использования оружия из этой категории.";
                 handGunsBtn.Enabled = false;
             }
             if (rifles.Size == 0)
             {
                 riflesBtn.LeftIcon = MenuItem.Icon.LOCK;
-                riflesBtn.Description = "The server owner removed the permissions for all weapons in this category.";
+                riflesBtn.Description = "У вас недостаточно полномочий для использования оружия из этой категории.";
                 riflesBtn.Enabled = false;
             }
             if (shotguns.Size == 0)
             {
                 shotgunsBtn.LeftIcon = MenuItem.Icon.LOCK;
-                shotgunsBtn.Description = "The server owner removed the permissions for all weapons in this category.";
+                shotgunsBtn.Description = "У вас недостаточно полномочий для использования оружия из этой категории.";
                 shotgunsBtn.Enabled = false;
             }
             if (smgs.Size == 0)
             {
                 smgsBtn.LeftIcon = MenuItem.Icon.LOCK;
-                smgsBtn.Description = "The server owner removed the permissions for all weapons in this category.";
+                smgsBtn.Description = "У вас недостаточно полномочий для использования оружия из этой категории..";
                 smgsBtn.Enabled = false;
             }
             if (throwables.Size == 0)
             {
                 throwablesBtn.LeftIcon = MenuItem.Icon.LOCK;
-                throwablesBtn.Description = "The server owner removed the permissions for all weapons in this category.";
+                throwablesBtn.Description = "У вас недостаточно полномочий для использования оружия из этой категории.";
                 throwablesBtn.Enabled = false;
             }
             if (melee.Size == 0)
             {
                 meleeBtn.LeftIcon = MenuItem.Icon.LOCK;
-                meleeBtn.Description = "The server owner removed the permissions for all weapons in this category.";
+                meleeBtn.Description = "У вас недостаточно полномочий для использования оружия из этой категории.";
                 meleeBtn.Enabled = false;
             }
             if (heavy.Size == 0)
             {
                 heavyBtn.LeftIcon = MenuItem.Icon.LOCK;
-                heavyBtn.Description = "The server owner removed the permissions for all weapons in this category.";
+                heavyBtn.Description = "У вас недостаточно полномочий для использования оружия из этой категории.";
                 heavyBtn.Enabled = false;
             }
             if (snipers.Size == 0)
             {
                 snipersBtn.LeftIcon = MenuItem.Icon.LOCK;
-                snipersBtn.Description = "The server owner removed the permissions for all weapons in this category.";
+                snipersBtn.Description = "У вас недостаточно полномочий для использования оружия из этой категории.";
                 snipersBtn.Enabled = false;
             }
             #endregion
@@ -679,12 +679,12 @@ namespace vMenuClient
                 if (item == noReload)
                 {
                     NoReload = _checked;
-                    Subtitle.Custom($"No reload is now {(_checked ? "enabled" : "disabled")}.");
+                    Subtitle.Custom($"Перезарядка {(_checked ? "включена" : "отключена")}.");
                 }
                 else if (item == unlimitedAmmo)
                 {
                     UnlimitedAmmo = _checked;
-                    Subtitle.Custom($"Unlimited ammo is now {(_checked ? "enabled" : "disabled")}.");
+                    Subtitle.Custom($"Бесконечные патроны {(_checked ? "включены" : "выключены")}.");
                 }
             };
             #endregion
