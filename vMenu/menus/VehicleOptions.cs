@@ -52,6 +52,7 @@ namespace vMenuClient
         public bool VehiclePowerMultiplier { get; private set; } = false;
         public float VehicleTorqueMultiplierAmount { get; private set; } = 2f;
         public float VehiclePowerMultiplierAmount { get; private set; } = 2f;
+        public bool policeRadarScript { get; private set; } = false;
 
         private Dictionary<MenuItem, int> vehicleExtras = new Dictionary<MenuItem, int>();
         #endregion
@@ -85,6 +86,7 @@ namespace vMenuClient
             MenuCheckboxItem highbeamsOnHonk = new MenuCheckboxItem("Включать дальние огни с гудком", "Включать огни при гудке. ~y~Не работает днем~s~.", FlashHighbeamsOnHonk);
             //MenuCheckboxItem showHealth = new MenuCheckboxItem("Show Vehicle Health", "Shows the vehicle health on the screen.", VehicleShowHealth);
             MenuCheckboxItem infiniteFuel = new MenuCheckboxItem("Infinite Fuel", "Enables or disables infinite fuel for this vehicle, only works if FRFuel is installed.", VehicleInfiniteFuel);
+            MenuCheckboxItem policeRadar = new MenuCheckboxItem("Радар", "Включить радар", policeRadarScript);
 
             // Create buttons.
             MenuItem fixVehicle = new MenuItem("Repair Vehicle", "Repair any visual and physical damage present on your vehicle.");
@@ -367,6 +369,9 @@ namespace vMenuClient
             {
                 menu.AddMenuItem(deleteBtn);
             }
+
+            menu.AddMenuItem(policeRadar);
+
             #endregion
 
             #region delete vehicle handle stuff
@@ -569,6 +574,26 @@ namespace vMenuClient
                 else if (item == highbeamsOnHonk)
                 {
                     FlashHighbeamsOnHonk = _checked;
+                }
+                else if (item == policeRadar)
+                {
+                    policeRadarScript = _checked;
+                    if (MainMenu.VehicleOptionsMenu.policeRadarScript) {
+                        if (MainMenu.PermissionsSetupComplete && MainMenu.VehicleOptionsMenu != null && IsPedInAnyVehicle(Game.PlayerPed.Handle, true))
+                        {
+                            Vehicle veh = GetVehicle();
+                            if (veh != null && veh.Exists())
+                            {
+                                if (veh.Driver == Game.PlayerPed && !IsPauseMenuActive())
+                                {
+                                    TriggerServerEvent("wk:toggleRadar");
+                                }
+                            }
+                        }
+                    } else
+                    {
+                        TriggerServerEvent("wk:toggleRadar");
+                    }
                 }
                 else if (item == vehicleNoTurbulence)
                 {
