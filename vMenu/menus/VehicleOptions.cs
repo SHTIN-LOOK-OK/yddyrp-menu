@@ -86,7 +86,10 @@ namespace vMenuClient
             MenuCheckboxItem highbeamsOnHonk = new MenuCheckboxItem("Включать дальние огни с гудком", "Включать огни при гудке. ~y~Не работает днем~s~.", FlashHighbeamsOnHonk);
             //MenuCheckboxItem showHealth = new MenuCheckboxItem("Show Vehicle Health", "Shows the vehicle health on the screen.", VehicleShowHealth);
             MenuCheckboxItem infiniteFuel = new MenuCheckboxItem("Infinite Fuel", "Enables or disables infinite fuel for this vehicle, only works if FRFuel is installed.", VehicleInfiniteFuel);
-            MenuCheckboxItem policeRadar = new MenuCheckboxItem("Радар", "Включить радар", policeRadarScript);
+            // RADAR         
+            MenuCheckboxItem policeRadar = new MenuCheckboxItem("Радар", "Включить/выключить радар.", policeRadarScript);
+            MenuItem policeRadarSet = new MenuItem("Установить лимит", "Установить лимит скорости радара.");
+            MenuItem policeRadarClear = new MenuItem("Сбросить радар", "Сбросить текущее закрепленное значение радара.");
 
             // Create buttons.
             MenuItem fixVehicle = new MenuItem("Repair Vehicle", "Repair any visual and physical damage present on your vehicle.");
@@ -371,7 +374,8 @@ namespace vMenuClient
             }
 
             menu.AddMenuItem(policeRadar);
-
+            menu.AddMenuItem(policeRadarClear);
+            menu.AddMenuItem(policeRadarSet);
             #endregion
 
             #region delete vehicle handle stuff
@@ -492,6 +496,14 @@ namespace vMenuClient
                                 // Set the vehicle invisible or invincivble.
                                 vehicle.IsVisible = !vehicle.IsVisible;
                             }
+                        }
+                        else if (item == policeRadarClear)
+                        {
+                            TriggerEvent("wk:radarRCClear");
+                        }
+                        else if (item == policeRadarSet)
+                        {
+                            TriggerEvent("wk:radarSetNewLimit");
                         }
                     }
 
