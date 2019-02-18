@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,20 +31,20 @@ namespace vMenuClient
         private void CreateMenu()
         {
             // Menu
-            menu = new Menu(GetSafePlayerName(Game.Player.Name), "Personal Vehicle Options");
+            menu = new Menu(GetSafePlayerName(Game.Player.Name), "Параметры автомобиля");
 
             // menu items
-            MenuItem setVehice = new MenuItem("Set Vehicle", "Sets your current vehicle as your personal vehicle. If you already have a personal vehicle set then this will override your selection.") { Label = "Current Vehicle: None" };
-            MenuItem toggleEngine = new MenuItem("Toggle Engine", "Toggles the engine on or off, even when you're not inside of the vehicle. This does not work if someone else is currently using your vehicle.");
-            MenuListItem toggleLights = new MenuListItem("Set Vehicle Lights", new List<string>() { "Force On", "Force Off", "Reset" }, 0, "This will enable or disable your vehicle headlights, the engine of your vehicle needs to be running for this to work.");
-            MenuItem kickAllPassengers = new MenuItem("Kick Passengers", "This will remove all passengers from your personal vehicle.");
+            MenuItem setVehice = new MenuItem("Сохранить автомобиль", "Сохранить текущий автомобиль, как персональный. Если у вас уже сохранен персональный автомобиль, он будет перезаписан на текущий.") { Label = "Current Vehicle: None" };
+            MenuItem toggleEngine = new MenuItem("Включить двигатель", "Включить или выключить двигатель автомобиля, даже если вы не находитесь в нем. Данная функция не работает, если кто то использует этот автомобиль.");
+            MenuListItem toggleLights = new MenuListItem("Включить фары", new List<string>() { "Включить", "Выключить", "Сбросить" }, 0, "Это включит или выключит фары на вашем автомобиле, если двигатель запущен.");
+            MenuItem kickAllPassengers = new MenuItem("Выкинуть пассажиров", "Это выбросит пассажиров из вашего автомобиля.");
             //MenuItem
-            MenuItem lockDoors = new MenuItem("Lock Vehicle Doors", "This will lock all your vehicle doors for all players. Anyone already inside will always be able to leave the vehicle, even if the doors are locked.");
-            MenuItem unlockDoors = new MenuItem("Unlock Vehicle Doors", "This will unlock all your vehicle doors for all players.");
-            MenuItem soundHorn = new MenuItem("Sound Horn", "Sounds the horn of the vehicle.");
-            MenuItem toggleAlarm = new MenuItem("Toggle Alarm Sound", "Toggles the vehicle alarm sound on or off. This does not set an alarm. It only toggles the current sounding status of the alarm.");
-            MenuCheckboxItem enableBlip = new MenuCheckboxItem("Add Blip For Personal Vehicle", "Enables or disables the blip that gets added when you mark a vehicle as your personal vehicle.", EnableVehicleBlip) { Style = MenuCheckboxItem.CheckboxStyle.Cross };
-            MenuCheckboxItem exclusiveDriver = new MenuCheckboxItem("Exclusive Driver", "If enabled, then you will be the only one that can enter the drivers seat. Other players will not be able to drive the car. They can still be passengers.", false) { Style = MenuCheckboxItem.CheckboxStyle.Cross };
+            MenuItem lockDoors = new MenuItem("Закрыть автомобиль", "Это закроет ваш автомобиль для всех игроков. Все внутри смогут выйти из закрытого автомобиля.");
+            MenuItem unlockDoors = new MenuItem("Открыть автомобиль", "Это откроет ваш автомобиль для всех игроков.");
+            MenuItem soundHorn = new MenuItem("Сигнал", "Активирует сигнал на автомобиле.");
+            MenuItem toggleAlarm = new MenuItem("Включить сигнализацию", "Включает или выключает сигнализацию на вашем автомобиле.");
+            MenuCheckboxItem enableBlip = new MenuCheckboxItem("Добавить метку для Вашего авто", "Добавляет или удаляет метку для Вашего автомобиля на карте.", EnableVehicleBlip) { Style = MenuCheckboxItem.CheckboxStyle.Cross };
+            MenuCheckboxItem exclusiveDriver = new MenuCheckboxItem("Персональный автомобиль", "Если вы активируете эту функцию, никто кроме вас не сможет сесть в автомобиль в качестве водителя.", false) { Style = MenuCheckboxItem.CheckboxStyle.Cross };
 
             // This is always allowed if this submenu is created/allowed.
             menu.AddMenuItem(setVehice);
@@ -110,7 +110,7 @@ namespace vMenuClient
                     {
                         if (!NetworkRequestControlOfEntity(CurrentPersonalVehicle.Handle))
                         {
-                            Notify.Error("You currently can't control this vehicle. Is someone else currently driving your car? Please try again after making sure other players are not controlling your vehicle.");
+                            Notify.Error("Вы не можете сейчас управлять своим автомобилем. Убедитесь что в вашем автомобиле никого нету.");
                             return;
                         }
                     }
@@ -133,7 +133,7 @@ namespace vMenuClient
                 }
                 else
                 {
-                    Notify.Error("You have not yet selected a personal vehicle, or your vehicle has been deleted. Set a personal vehicle before you can use these options.");
+                    Notify.Error("У вас не выбран персональный автомобиль или он удален. Сохраните персональный автомобиль перед использованием.");
                 }
             };
 
@@ -152,11 +152,11 @@ namespace vMenuClient
                                 CurrentPersonalVehicle.AttachBlip();
                             }
                             CurrentPersonalVehicle.AttachedBlip.Sprite = BlipSprite.PersonalVehicleCar;
-                            CurrentPersonalVehicle.AttachedBlip.Name = "Personal Vehicle";
+                            CurrentPersonalVehicle.AttachedBlip.Name = "Персональный автомобиль";
                         }
                         else
                         {
-                            Notify.Error("You have not yet selected a personal vehicle, or your vehicle has been deleted. Set a personal vehicle before you can use these options.");
+                            Notify.Error("У вас не выбран персональный автомобиль или он удален. Сохраните персональный автомобиль перед использованием.");
                         }
 
                     }
@@ -188,7 +188,7 @@ namespace vMenuClient
                         else
                         {
                             item.Checked = !_checked;
-                            Notify.Error("You currently can't control this vehicle. Is someone else currently driving your car? Please try again after making sure other players are not controlling your vehicle.");
+                            Notify.Error("Вы не можете сейчас управлять своим автомобилем. Убедитесь что в вашем автомобиле никого нету.");
                         }
                     }
                 }
@@ -216,14 +216,14 @@ namespace vMenuClient
                                         veh.AttachBlip();
                                     }
                                     veh.AttachedBlip.Sprite = BlipSprite.PersonalVehicleCar;
-                                    veh.AttachedBlip.Name = "Personal Vehicle";
+                                    veh.AttachedBlip.Name = "Персональный автомобиль";
                                 }
                                 var name = GetLabelText(veh.DisplayName);
                                 if (string.IsNullOrEmpty(name) || name.ToLower() == "null")
                                 {
                                     name = veh.DisplayName;
                                 }
-                                item.Label = $"Current Vehicle: {name}";
+                                item.Label = $"Текущий автомобиль: {name}";
                             }
                             else
                             {
@@ -251,7 +251,7 @@ namespace vMenuClient
                         }
                         else
                         {
-                            Notify.Info("There are no other players in your vehicle that need to be kicked out.");
+                            Notify.Info("Никого нет в вашем автомобиле, кого можно выкинуть.");
                         }
                     }
                     else
@@ -260,7 +260,7 @@ namespace vMenuClient
                         {
                             if (!NetworkRequestControlOfEntity(CurrentPersonalVehicle.Handle))
                             {
-                                Notify.Error("You currently can't control this vehicle. Is someone else currently driving your car? Please try again after making sure other players are not controlling your vehicle.");
+                                Notify.Error("Вы не можете сейчас управлять своим автомобилем. Убедитесь что в вашем автомобиле никого нету.");
                                 return;
                             }
                         }
@@ -289,7 +289,7 @@ namespace vMenuClient
                 }
                 else
                 {
-                    Notify.Error("You have not yet selected a personal vehicle, or your vehicle has been deleted. Set a personal vehicle before you can use these options.");
+                    Notify.Error("У вас не выбран персональный автомобиль или он удален. Сохраните персональный автомобиль перед использованием.");
                 }
             };
         }
