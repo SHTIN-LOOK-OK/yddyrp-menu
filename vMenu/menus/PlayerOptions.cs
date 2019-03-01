@@ -59,7 +59,7 @@ namespace vMenuClient
             // Wanted level options
             List<string> wantedLevelList = new List<string> { "No Wanted Level", "1", "2", "3", "4", "5" };
             MenuListItem setWantedLevel = new MenuListItem("Set Wanted Level", wantedLevelList, GetPlayerWantedLevel(Game.Player.Handle), "Set your wanted level by selecting a value, and pressing enter.");
-            MenuListItem setArmorItem = new MenuListItem("Set Armor Type", new List<string> { "No Armor", GetLabelText("WT_BA_0"), GetLabelText("WT_BA_1"), GetLabelText("WT_BA_2"), GetLabelText("WT_BA_3"), GetLabelText("WT_BA_4"), }, 0, "Set the armor level/type for your player.");
+            MenuListItem setArmorItem = new MenuListItem("Броня", new List<string> { "Нет брони", GetLabelText("WT_BA_0"), GetLabelText("WT_BA_1"), GetLabelText("WT_BA_2"), GetLabelText("WT_BA_3"), GetLabelText("WT_BA_4"), }, 0, "Set the armor level/type for your player.");
 
             MenuItem healPlayerBtn = new MenuItem("Heal Player", "Give the player max health.");
             MenuItem cleanPlayerBtn = new MenuItem("Очистить одежду", "Убрать засохшую кровь одной кнопкой.");
